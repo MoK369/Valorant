@@ -12,9 +12,10 @@ class WeaponCard extends StatelessWidget {
     final ThemeData theme = Theme.of(context);
     Size size = MediaQuery.of(context).size;
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 30),
+      padding: const EdgeInsets.symmetric(vertical: 50),
       child: Stack(
         alignment: Alignment.topCenter,
+        clipBehavior: Clip.none,
         children: [
           Container(
             width: size.width * 0.9,
@@ -24,19 +25,23 @@ class WeaponCard extends StatelessWidget {
                 color: Color(0xFF081E34),
                 borderRadius: BorderRadiusDirectional.all(Radius.circular(15))),
           ),
-          Transform(
-              alignment: Alignment.center,
-              transform: Matrix4.identity()
-                ..rotateZ(ltr ? 15.3 : 25.4)
-                ..rotateX(ltr ? 3 : 0),
-              child: Image.network(
-                weapon.displayIcon ?? "",
-                scale: 1.4,
-              )),
+          Positioned(
+            left: ltr ? 15 : null,
+            right: ltr ? null : 25,
+            child: Transform(
+                alignment: Alignment.topCenter,
+                transform: Matrix4.identity()
+                  ..rotateZ(ltr ? 15.4 : 25.4)
+                  ..rotateX(ltr ? 3 : 0),
+                child: Image.network(
+                  weapon.displayIcon ?? "",
+                  scale: 1.5,
+                )),
+          ),
           Positioned(
             top: 60,
-            left: ltr ? null : 30,
-            right: ltr ? 30 : null,
+            left: ltr ? null : 40,
+            right: ltr ? 40 : null,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

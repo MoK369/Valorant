@@ -5,12 +5,16 @@ import 'package:valorent/core/services/apis/agent_api_manager.dart';
 import 'package:valorent/modules/agent_screen/agent_screen.dart';
 import 'package:valorent/modules/home/widgets/agent_card.dart';
 
-class AgentsView extends StatelessWidget {
+class AgentsView extends StatefulWidget {
   const AgentsView({super.key});
 
   @override
+  State<AgentsView> createState() => _AgentsViewState();
+}
+
+class _AgentsViewState extends State<AgentsView> {
+  @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     final ThemeData theme = Theme.of(context);
     return Column(
       children: [
@@ -19,12 +23,22 @@ class AgentsView extends StatelessWidget {
             future: AgentApiManager.getAgents(),
             builder: (context, snapshot) {
               if (snapshot.hasError) {
-                debugPrint("${snapshot.error}");
-                return Center(
-                  child: Text(
-                    "Something went wrong",
-                    style: theme.textTheme.titleSmall,
-                  ),
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Something went wrong",
+                      style: theme.textTheme.titleSmall,
+                    ),
+                    ElevatedButton(
+                        onPressed: () {
+                          setState(() {});
+                        },
+                        child: Text(
+                          "Try Again",
+                          style: theme.textTheme.titleSmall,
+                        ))
+                  ],
                 );
               } else if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(
@@ -44,13 +58,17 @@ class AgentsView extends StatelessWidget {
                         child: AgentCard(
                             agentImage: agents[index].fullPortraitV2 ?? "",
                             name: agents[index].displayName ?? "",
-                            backgroundGradientColors:
-                                agents[index].backgroundGradientColors ?? []),
+                            backgroundGradientColors: agents[index]
+                                    .backgroundGradientColors
+                                    ?.cast<String>() ??
+                                []),
                       );
                     },
                     options: CarouselOptions(
                         initialPage: 0,
-                        height: size.height * 0.9,
+                        enlargeCenterPage: true,
+                        enlargeFactor: 0.4,
+                        aspectRatio: 5.5 / 5,
                         viewportFraction: 0.65));
               }
             },

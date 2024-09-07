@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:valorent/core/models/agents_model.dart';
 import 'package:valorent/core/defined_fonts/defined_fonts.dart';
+import 'package:valorent/core/models/agents_model.dart';
 import 'package:valorent/modules/agent_screen/widgets/ability_box.dart';
 
 class AgentScreen extends StatelessWidget {
@@ -52,9 +52,12 @@ class AgentScreen extends StatelessWidget {
                     ),
                     Positioned(
                         top: -60,
-                        child: Image.network(
-                          agent.fullPortrait ?? "",
-                          scale: 4.3,
+                        child: Hero(
+                          tag: agent.fullPortraitV2!,
+                          child: Image.network(
+                            agent.fullPortraitV2 ?? "",
+                            scale: 4.3,
+                          ),
                         ))
                   ],
                 ),

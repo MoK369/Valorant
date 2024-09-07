@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:valorent/core/defined_fonts/defined_fonts.dart';
 
 class AgentCard extends StatelessWidget {
-  String agentImage, name;
-  List<dynamic> backgroundGradientColors;
+  final String agentImage, name;
+  final List<String> backgroundGradientColors;
 
-  AgentCard(
+  const AgentCard(
       {super.key,
       required this.agentImage,
       required this.name,
@@ -13,15 +13,12 @@ class AgentCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return Center(
       child: Stack(
         alignment: Alignment.bottomLeft,
         clipBehavior: Clip.none,
         children: [
           Container(
-            width: size.width * 0.6,
-            height: size.height * 0.4,
             decoration: BoxDecoration(
                 borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(103),
@@ -29,17 +26,19 @@ class AgentCard extends StatelessWidget {
                     bottomLeft: Radius.circular(22),
                     bottomRight: Radius.circular(59)),
                 gradient: LinearGradient(
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
+                    begin: Alignment.topRight,
+                    end: Alignment.bottomLeft,
                     colors: [
-                      Color(0x0 +
-                          int.parse(backgroundGradientColors[0], radix: 16)),
-                      Color(0x0 +
-                          int.parse(backgroundGradientColors[1], radix: 16)),
-                      Color(0x0 +
-                          int.parse(backgroundGradientColors[2], radix: 16)),
-                      Color(0x0 +
-                          int.parse(backgroundGradientColors[3], radix: 16))
+                      Color(0xFF000000 +
+                          int.parse(
+                              backgroundGradientColors[0]
+                                  .replaceRange(6, 8, ""),
+                              radix: 16)),
+                      Color(0xFF000000 +
+                          int.parse(
+                              backgroundGradientColors[3]
+                                  .replaceRange(6, 8, ""),
+                              radix: 16))
                     ])),
           ),
           Positioned(
@@ -49,7 +48,7 @@ class AgentCard extends StatelessWidget {
             height: 308,
             child: Transform.scale(
               scale: 3.3,
-              child: Image.network(agentImage),
+              child: Hero(tag: agentImage, child: Image.network(agentImage)),
             ),
           ),
           Padding(

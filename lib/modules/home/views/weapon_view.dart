@@ -3,9 +3,14 @@ import 'package:valorent/core/models/weapons_model.dart';
 import 'package:valorent/core/services/apis/weapon_api_manager.dart';
 import 'package:valorent/modules/home/widgets/weapon_card.dart';
 
-class WeaponView extends StatelessWidget {
+class WeaponView extends StatefulWidget {
   const WeaponView({super.key});
 
+  @override
+  State<WeaponView> createState() => _WeaponViewState();
+}
+
+class _WeaponViewState extends State<WeaponView> {
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
@@ -16,12 +21,22 @@ class WeaponView extends StatelessWidget {
           future: WeaponApiManager.getMaps(),
           builder: (context, snapshot) {
             if (snapshot.hasError) {
-              debugPrint("${snapshot.error}");
-              return Center(
-                child: Text(
-                  "Something went wrong",
-                  style: theme.textTheme.titleSmall,
-                ),
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Something went wrong",
+                    style: theme.textTheme.titleSmall,
+                  ),
+                  ElevatedButton(
+                      onPressed: () {
+                        setState(() {});
+                      },
+                      child: Text(
+                        "Try Again",
+                        style: theme.textTheme.titleSmall,
+                      ))
+                ],
               );
             } else if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(

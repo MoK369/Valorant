@@ -3,9 +3,14 @@ import 'package:valorent/core/models/maps_model.dart';
 import 'package:valorent/core/services/apis/map_api_manager.dart';
 import 'package:valorent/modules/home/widgets/map_card.dart';
 
-class MapsView extends StatelessWidget {
+class MapsView extends StatefulWidget {
   const MapsView({super.key});
 
+  @override
+  State<MapsView> createState() => _MapsViewState();
+}
+
+class _MapsViewState extends State<MapsView> {
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
@@ -16,12 +21,22 @@ class MapsView extends StatelessWidget {
             future: MapApiManager.getMaps(),
             builder: (context, snapshot) {
               if (snapshot.hasError) {
-                print(snapshot.error);
-                return Center(
-                  child: Text(
-                    "Something went wrong",
-                    style: theme.textTheme.titleSmall,
-                  ),
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Something went wrong",
+                      style: theme.textTheme.titleSmall,
+                    ),
+                    ElevatedButton(
+                        onPressed: () {
+                          setState(() {});
+                        },
+                        child: Text(
+                          "Try Again",
+                          style: theme.textTheme.titleSmall,
+                        ))
+                  ],
                 );
               } else if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(

@@ -16,33 +16,43 @@ class MapCard extends StatelessWidget {
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
           image: DecorationImage(
-              colorFilter: ColorFilter.mode(
-                Colors.red.withOpacity(
-                    0.5), // Replace with your desired color and opacity
-                BlendMode
-                    .colorDodge, // Choose appropriate blend mode for your use case
-              ),
+              // colorFilter: ColorFilter.mode(
+              //   Colors.red.withOpacity(0.5),
+              //   BlendMode.colorDodge,
+              // ),
               image: NetworkImage(map.splash ?? ""),
               fit: BoxFit.cover)),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
+      child: Stack(
         children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              map.displayName ?? "",
-              style: theme.textTheme.titleSmall!.copyWith(fontSize: 30),
-            ),
+          Container(
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                gradient: LinearGradient(
+                    begin: Alignment.centerRight,
+                    end: Alignment.centerLeft,
+                    stops: const [
+                      0.4,
+                      1
+                    ],
+                    colors: [
+                      Colors.redAccent.withOpacity(0.4),
+                      Colors.transparent,
+                    ])),
           ),
-          const Spacer(),
-          Image.network(map.displayIcon ?? ""),
-          // CachedNetworkImage(
-          //   imageUrl: map.displayIcon ?? "",
-          //   placeholder: (context, url) =>
-          //       const Center(child: CircularProgressIndicator()),
-          //   errorWidget: (context, url, error) =>
-          //       const Center(child: Icon(Icons.error)),
-          // ),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  map.displayName ?? "",
+                  style: theme.textTheme.titleSmall!.copyWith(fontSize: 30),
+                ),
+              ),
+              const Spacer(),
+              Image.network(map.displayIcon ?? ""),
+            ],
+          ),
         ],
       ),
     );
