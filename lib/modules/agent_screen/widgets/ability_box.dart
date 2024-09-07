@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class AbilityBox extends StatelessWidget {
-  String imagePath;
+  final String imagePath;
 
-  AbilityBox({super.key, required this.imagePath});
+  const AbilityBox({super.key, required this.imagePath});
 
   @override
   Widget build(BuildContext context) {

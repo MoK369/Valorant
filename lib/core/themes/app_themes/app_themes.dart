@@ -22,5 +22,9 @@ class AppThemes {
           titleSmall: TextStyle(
               color: Colors.white,
               fontSize: 21,
-              fontFamily: DefinedFonts.VALORANT)));
+              fontFamily: DefinedFonts.VALORANT)),
+      elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+              backgroundColor: darkOnPrimaryColor,
+              foregroundColor: Colors.white)));
 }
