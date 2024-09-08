@@ -6,6 +6,8 @@ class AppThemes {
   static const Color darkOnPrimaryColor = Color(0xFFFD4556);
   static final ThemeData darkTheme = ThemeData(
       scaffoldBackgroundColor: darkPrimaryColor,
+      progressIndicatorTheme:
+          const ProgressIndicatorThemeData(color: darkOnPrimaryColor),
       appBarTheme: const AppBarTheme(
           centerTitle: true,
           backgroundColor: Colors.transparent,

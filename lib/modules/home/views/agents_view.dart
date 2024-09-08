@@ -67,6 +67,7 @@ class _AgentsViewState extends State<AgentsView> {
                     options: CarouselOptions(
                         initialPage: 0,
                         enlargeCenterPage: true,
+                        enableInfiniteScroll: true,
                         enlargeFactor: 0.4,
                         aspectRatio: 5.5 / 5,
                         viewportFraction: 0.65));
