@@ -1,6 +1,8 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:valorent/core/defined_fonts/defined_fonts.dart';
 import 'package:valorent/core/models/agents_model.dart';
+import 'package:valorent/core/network_images/network_images.dart';
 import 'package:valorent/modules/agent_screen/widgets/ability_box.dart';
 
 class AgentScreen extends StatelessWidget {
@@ -45,25 +47,30 @@ class AgentScreen extends StatelessWidget {
                   alignment: Alignment.bottomCenter,
                   clipBehavior: Clip.none,
                   children: [
-                    Image.network(
-                      agent.background ?? "",
+                    CachedNetworkImage(
+                      imageUrl: agent.background ?? "",
                       scale: 1.3,
                       height: size.height * 0.4,
+                      placeholder: (context, url) =>
+                          const Center(child: CircularProgressIndicator()),
+                      errorWidget: (context, url, error) => const Center(
+                          child: Icon(
+                        Icons.error,
+                      )),
                     ),
                     Positioned(
                         top: -60,
                         child: Hero(
-                          tag: agent.fullPortraitV2!,
-                          child: Image.network(
-                            agent.fullPortraitV2 ?? "",
-                            scale: 4.3,
-                          ),
-                        ))
+                            tag: agent.fullPortraitV2!,
+                            child: CustomCachedNetImages(
+                              imageUrl: agent.fullPortraitV2 ?? "",
+                              scale: 4.3,
+                            )))
                   ],
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8),
+                padding: const EdgeInsets.symmetric(horizontal: 5),
                 child: Text(
                   """
 Description
@@ -80,7 +87,7 @@ Abilities
               ),
               const Spacer(),
               Expanded(
-                  flex: 3,
+                  flex: 4,
                   child: ListView.builder(
                     scrollDirection: Axis.horizontal,
                     itemCount: agent.abilities.length,
@@ -96,7 +103,7 @@ Abilities
                     },
                   )),
               const SizedBox(
-                height: 20,
+                height: 10,
               )
             ],
           )),

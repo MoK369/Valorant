@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:valorent/core/network_images/network_images.dart';
 
 class AbilityBox extends StatelessWidget {
   final String imagePath;
@@ -7,15 +8,14 @@ class AbilityBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
     return Container(
-      height: 100,
-      width: 100,
+      width: size.width * 0.23,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15),
           border: Border.all(color: Colors.white)),
-      child: Image.network(
-        imagePath,
-        scale: 1.2,
+      child: CustomCachedNetImages(
+        imageUrl: imagePath,
       ),
     );
   }

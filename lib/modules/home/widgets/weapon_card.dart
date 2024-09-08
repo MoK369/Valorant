@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:valorent/core/models/weapons_model.dart';
+import 'package:valorent/core/network_images/network_images.dart';
 
 class WeaponCard extends StatelessWidget {
   final WeaponData weapon;
@@ -33,10 +34,8 @@ class WeaponCard extends StatelessWidget {
                 transform: Matrix4.identity()
                   ..rotateZ(ltr ? 15.4 : 25.4)
                   ..rotateX(ltr ? 3 : 0),
-                child: Image.network(
-                  weapon.displayIcon ?? "",
-                  scale: 1.5,
-                )),
+                child: CustomCachedNetImages(
+                    imageUrl: weapon.displayIcon ?? "", scale: 1.5)),
           ),
           Positioned(
             top: 60,

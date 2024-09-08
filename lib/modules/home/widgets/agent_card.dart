@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:valorent/core/defined_fonts/defined_fonts.dart';
+import 'package:valorent/core/network_images/network_images.dart';
 
 class AgentCard extends StatelessWidget {
   final String agentImage, name;
@@ -48,7 +49,9 @@ class AgentCard extends StatelessWidget {
             height: 308,
             child: Transform.scale(
               scale: 3.3,
-              child: Hero(tag: agentImage, child: Image.network(agentImage)),
+              child: Hero(
+                  tag: agentImage,
+                  child: CustomCachedNetImages(imageUrl: agentImage)),
             ),
           ),
           Padding(
